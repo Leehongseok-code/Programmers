@@ -1,0 +1,20 @@
+import heapq
+def solution(scoville, K):
+    answer=0
+    h=[]
+    for i in scoville:
+        heapq.heappush(h,i)
+    if len(h)<=1:
+        if min(h)>=K:
+            return answer
+        else:
+            return -1
+    while len(h)>1:
+        if h[0]>=K:
+            return answer 
+        answer=answer+1
+        num=heapq.heappop(h)+2*heapq.heappop(h)
+        heapq.heappush(h,num)
+    if h[0]>=K:
+            return answer 
+    return -1
