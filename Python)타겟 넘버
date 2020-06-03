@@ -1,0 +1,23 @@
+#cnt는 리스트의 경우 레퍼런스복사가 일어나므로 리스트->정수로 변환
+def dfs(arr,num,level,tar,cnt):
+    if level==len(arr):#마지막 자식 노드에 도달했을 때
+        if num==tar:#맞는결과가 나오면
+            cnt[0]=cnt[0]+1 #cnt+1
+        else:
+            cnt[0]=cnt[0]
+    else:
+        for i in arr[level]:
+            dfs(arr,num+i,level+1,tar,cnt)
+def solution(numbers, target):
+    cnt=[0]
+    tarr=[]
+    for i in numbers:
+        temp=[]
+        temp.append(i)#더하는경우 저장
+        temp.append(-i)#빼는경우 저장
+        tarr.append(temp)
+    #print(tarr)
+    dfs(tarr,0,0,target,cnt)
+    answer = 0
+    answer=cnt[0]
+    return answer
