@@ -1,0 +1,16 @@
+def solution(participant, completion):
+    answer=''
+    a={}
+    for i in participant:
+        if i in a:
+            a[i]=a[i]+1
+        else:
+            a[i]=1
+    #print(a)
+    for i in completion:
+        a[i]=a[i]-1
+    #print(a)
+    for i in a:
+        if a[i]==1:
+            answer=str(i)
+    return answer
