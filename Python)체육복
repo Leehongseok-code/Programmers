@@ -1,0 +1,32 @@
+def solution(n, lost, reserve):
+    answer = 0
+    training=[]
+    for i in range(n):
+        training.append(1)
+    for i in lost:
+        training[i-1]=training[i-1]-1
+    for i in reserve:
+        training[i-1]=training[i-1]+1
+    for i in range(len(training)):
+        if training[i]==0:#빌려줄 체육복이 있을 때
+            if i==0:#맨앞
+                if training[i+1]==2:
+                    training[i]=training[i]-1
+                    training[i-1]=training[i-1]+1
+            elif i==len(training)-1:#맨뒤
+                if training[i-1]==2:
+                    training[i]=training[i]+1
+                    training[i-1]=training[i-1]-1
+            else:#중간
+                #if training[i+1]==2 and training[i-1]==2:
+                    
+                if training[i-1]==2:#앞에서부터 뒤로 탐색하는거니까 여분있으면 일단 앞사람에게 빌림
+                    training[i]=training[i]+1
+                    training[i-1]=training[i-1]-1
+                elif training[i+1]==2:
+                    training[i]=training[i]+1
+                    training[i+1]=training[i+1]-1
+    for i in training:
+        if i!=0:
+            answer=answer+1
+    return answer
