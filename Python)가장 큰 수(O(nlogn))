@@ -1,0 +1,21 @@
+import heapq
+
+def numcat(num):
+    num=str(num)
+    temp=""
+    i=0
+    while len(temp)<4:
+        temp=temp+str(num[i%len(num)])#3->3333, 35->3535와 같이 모든 수를 4자리로 만듦
+        i=i+1
+    return temp
+def solution(numbers):
+    answer = ''
+    heap=[]
+    
+    for i in numbers:
+        heapq.heappush(heap,(-1*int(numcat(i)),i))
+    while len(heap)!=0:
+        answer=answer+str(heapq.heappop(heap)[1])
+    answer=str(int(answer))
+    
+    return answer
