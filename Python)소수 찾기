@@ -1,0 +1,38 @@
+def issosu(num):
+    for i in range(2,num):
+        if num%i==0:
+            return False
+    return True
+
+def instr(num,st):#숫자의 모든 요소가 주어진 문자열 st에 포함되어 있는지 확인
+    temp=str(num)
+    stcpy=st[:] 
+    cnt=0
+    for i in range(len(temp)):#입력받은 숫자
+        if temp[i] in stcpy:
+            cnt+=1
+            stcpy=stcpy.replace(temp[i],"",1)
+            #print(stcpy)
+    if cnt==len(temp):
+        return True
+    else:
+        return False
+
+def solution(numbers):
+    answer = 0
+    st=""
+    num=[]
+    total=[]
+    for i in numbers:
+        num.append(i)
+    num.sort(reverse=True)
+    for i in num:
+        st=st+str(i)
+    mxval=int(st)
+    for i in range(2,mxval+1):
+        if instr(i,numbers)==True:#i가 numbers안에 있는 수일 경우
+            if issosu(i)==True:    
+                #print(i)
+                answer+=1
+    #print(mxval)
+    return answer
