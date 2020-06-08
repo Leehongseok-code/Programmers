@@ -1,0 +1,12 @@
+def solution(clothes):
+    answer = 1
+    cody={}
+    for i in clothes:
+        cody[i[1]]=['n']#이 종류의 옷을 선택하지 않을 수 있음
+    for i in clothes:
+        cody[i[1]].append(i[0])
+    for i in cody:
+        answer*=len(cody[i])
+    answer-=1#아무 종류의 옷도 선택하지 않은 경우를 제외
+    #print(cody)
+    return answer
