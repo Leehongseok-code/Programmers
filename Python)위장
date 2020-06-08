@@ -10,3 +10,4 @@ def solution(clothes):
     answer-=1#아무 종류의 옷도 선택하지 않은 경우를 제외
     #print(cody)
     return answer
+.
