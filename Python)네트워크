@@ -1,0 +1,29 @@
+def dfs(graph,start):
+    visited=[]
+    n_visited=[]
+    n_visited.append(start)
+    while len(n_visited)!=0:
+        node=n_visited.pop()
+        if node not in visited:
+            visited.append(node)
+            for i in graph[node]:
+                n_visited.append(i)
+    return visited
+def solution(n, computers):
+    answer = 0
+    networks={}
+    nets=[]
+    for i in range(len(computers)):
+        networks[i]=[]
+    for i in range(len(computers)):
+        for j in range(len(computers[0])):
+            if computers[i][j]==1:
+                networks[j].append(i)
+    for i in range(len(networks)):
+        temp=dfs(networks,i)#dfs를 통해 각 원소를 시작접으로 하는 경로를 탐색
+        print(temp)
+        s=set(temp)#순서 상관없이 중복을 가려내기 위함임.
+        if s not in nets:#중복된 경로들을 제거하기 위해서
+            nets.append(s)
+    answer=len(nets)#중복을 제거한 리스트의 원소 수를 세면 총 연결 수 
+    return answer
