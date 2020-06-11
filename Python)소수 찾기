@@ -36,4 +36,4 @@ def solution(numbers):
                 answer+=1
     #print(mxval)
     return answer
-.
+
