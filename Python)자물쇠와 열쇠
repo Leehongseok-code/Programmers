@@ -1,0 +1,138 @@
+def sizenorm(arr1,arr2):#1을 2에 복사
+    res=[]
+    for i in range(len(arr1)):
+        temp=[]
+        for j in range(len(arr1)):
+            temp.append(arr1[i][j])
+        for j in range(len(arr2)-len(arr1)):
+            temp.append(0)
+        res.append(temp)
+    for i in range(len(arr2)-len(arr1)):
+        temp=[]
+        for j in range(len(arr2)):
+            temp.append(0)
+        res.append(temp)
+    #print("sizenormalized:",res)
+    return res    
+            
+def rotate(arr):
+    #print("arr:",arr)
+    res=[]
+    for i in range(len(arr)):
+        temp=[]
+        for j in range(len(arr)):
+            temp.append(0)
+        res.append(temp)
+    #print("res:",res)
+    for i in range(len(arr)):
+        for j in range(len(arr)):
+            res[j][len(arr)-i-1]=arr[i][j]
+    #print("rotated:",res)
+    return res
+
+def move_left(arr):
+    res=[]
+    for i in range(len(arr)):
+        temp=[]
+        for j in range(len(arr)-1):
+            temp.append(arr[i][j+1])
+        temp.append(0)
+        res.append(temp)
+    return res
+
+def move_right(arr):
+    res=[]
+    for i in range(len(arr)):
+        temp=[]
+        temp.append(0)
+        for j in range(1,len(arr)):
+            temp.append(arr[i][j-1])
+        res.append(temp)
+    return res 
+
+def move_up(arr):
+    res=[]
+    for i in range(len(arr)-1):
+        temp=[]
+        for j in range(len(arr)):
+            temp.append(arr[i+1][j])
+        res.append(temp)
+    t=[]
+    for i in range(len(arr)):
+        t.append(0)
+    res.append(t)
+    return res
+
+def move_down(arr):
+    res=[]
+    t=[]
+    for i in range(len(arr)):
+        t.append(0)
+    res.append(t)
+    for i in range(1,len(arr)):
+        temp=[]
+        for j in range(len(arr)):
+            temp.append(arr[i-1][j])
+        res.append(temp)
+    return res
+
+def combine(key,lock):#key와 lock을 결합시켜보는 함수
+    res=[]
+    cmp=[]#전부 1로만 이루어진 배열
+    for i in range(len(key)):
+        temp=[]
+        for j in range(len(key)):
+            temp.append(1)
+        cmp.append(temp)
+    for i in range(len(lock)):
+        temp=[]
+        for j in range(len(lock)):
+            temp.append(key[i][j]+lock[i][j])
+        res.append(temp)
+    for i in range(len(lock)):
+        for j in range(len(lock)):
+            if cmp[i][j]>res[i][j]:
+                return False
+    return True
+
+def zeroarr(arr):#key와 lock을 결
+    res=[]
+    cmp=[]#전부 0으로만 이루어진 배열
+    for i in range(len(arr)):
+        temp=[]
+        for j in range(len(arr)):
+            temp.append(0)
+        cmp.append(temp)
+    for i in range(len(arr)):
+        for j in range(len(arr)):
+            if cmp[i][j]!=arr[i][j]:
+                return False
+    return True
+
+def solution(key, lock):
+    answer = True 
+    key=sizenorm(key,lock)
+    rcpy=key[:]
+    for i in range(4):
+        rcpy=rotate(rcpy)
+        #print("rcpy:",rcpy)
+        cpy=rcpy[:]
+        for j in range(len(cpy)-1,-1,-1):
+            for k in range(j):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_up(cpy)
+            for k in range(j):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_right(cpy)
+    
+                                
+                           
+    #print("combine:",combine(key,lock))
+    #print("iszero:",zeroarr(key))
+    return False
