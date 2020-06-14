@@ -91,11 +91,11 @@ def combine(key,lock):#key와 lock을 결합시켜보는 함수
         res.append(temp)
     for i in range(len(lock)):
         for j in range(len(lock)):
-            if cmp[i][j]>res[i][j]:
+            if cmp[i][j]!=res[i][j]:
                 return False
     return True
 
-def zeroarr(arr):#key와 lock을 결
+def zeroarr(arr):#key와 lock을 결합
     res=[]
     cmp=[]#전부 0으로만 이루어진 배열
     for i in range(len(arr)):
@@ -117,22 +117,74 @@ def solution(key, lock):
         rcpy=rotate(rcpy)
         #print("rcpy:",rcpy)
         cpy=rcpy[:]
-        for j in range(len(cpy)-1,-1,-1):
+        for j in range(len(cpy)):
+            cpy=rcpy[:]
             for k in range(j):
                 if combine(cpy,lock)==True:
                     answer=True
                     return answer
                 else:
                     cpy=move_up(cpy)
-            for k in range(j):
+            for l in range(len(cpy)):
                 if combine(cpy,lock)==True:
                     answer=True
                     return answer
                 else:
                     cpy=move_right(cpy)
-    
-                                
-                           
+    for i in range(4):
+        rcpy=rotate(rcpy)
+        #print("rcpy:",rcpy)
+        cpy=rcpy[:]
+        for j in range(len(cpy)):
+            cpy=rcpy[:]
+            for k in range(j):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_up(cpy)
+            for l in range(len(cpy)):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_left(cpy)        
+    for i in range(4):
+        rcpy=rotate(rcpy)
+        #print("rcpy:",rcpy)
+        cpy=rcpy[:]
+        for j in range(len(cpy)):
+            cpy=rcpy[:]
+            for k in range(j):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_down(cpy)
+            for l in range(len(cpy)):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_left(cpy)
+    for i in range(4):
+        rcpy=rotate(rcpy)
+        #print("rcpy:",rcpy)
+        cpy=rcpy[:]
+        for j in range(len(cpy)):
+            cpy=rcpy[:]
+            for k in range(j):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_down(cpy)
+            for l in range(len(cpy)):
+                if combine(cpy,lock)==True:
+                    answer=True
+                    return answer
+                else:
+                    cpy=move_right(cpy)                                                   
     #print("combine:",combine(key,lock))
     #print("iszero:",zeroarr(key))
     return False
