@@ -1,0 +1,16 @@
+def solution(skill, skill_trees):
+    answer = 0
+    skill_cpy=skill[:]
+    for i in skill_trees:
+        skill_cpy=skill[:]
+        for j in range(len(i)):
+            if i[j] in skill_cpy:
+                if i[j]!=skill_cpy[0]:
+                    break
+                else:
+                    skill_cpy=skill_cpy[1:]
+            if j==len(i)-1:
+                answer+=1
+                print(i)
+
+    return answer
