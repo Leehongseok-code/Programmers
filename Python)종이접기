@@ -1,0 +1,27 @@
+def fold(arr,n):
+    res=[]
+    #for i in range((len(arr)+1)*2-1):
+    #    res.append(0)
+    for i in  range(len(arr)):#처음 절반부분은 n-1번 접은 상태와 동일 
+        res.append(arr[i])
+    res.append(0)#절반지점은 무조건 0
+    for i in range(len(arr)):#index로 res에 접근하기위해 의도적으로 빈칸으로 배열을 채움
+        res.append(0)
+    for i in range(len(arr)):#가운데를 기준으로 대칭을 이룸
+        if arr[i]==0:
+            res[len(res)-1-i]=1
+        else:
+            res[len(res)-1-i]=0
+    if n==1:
+        return [0]
+    elif n==2:
+        return res
+    else:
+        return fold(res,n-1)
+    
+    
+def solution(n):
+    answer = []
+    paper=[0]
+    answer=fold(paper,n)
+    return answer
