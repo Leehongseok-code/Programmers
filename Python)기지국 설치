@@ -1,0 +1,27 @@
+def recur(n,w):
+    while max(1,n-w)!=1:
+        return recur(n-w,w)+1
+    return 1
+def solution(n, stations, w):
+    answer = 0
+    stcpy=stations[:]
+    if stcpy[len(stcpy)-1]<n-w:#만약 맨 오른쪽에서 w만큼 떨어진 범위내에 기지국이 없다면
+        answer+=1
+        stcpy.append(n-w)#맨 오른쪽에서 w만큼 떨어진 곳에 기지국 하나 설치하고 시작
+    #print(stcpy)    
+    while len(stcpy)!=0:#stcpy안에 있는 원소의 왼쪽 구간에 신호가 전달되게끔 기지국 설치
+        num=stcpy[0]
+        #print(stcpy[0])
+        while max(1,num-w-1)!=1:
+            answer+=1
+            num=num-w-1
+            
+        #stations의 모든 원소들을 맨 앞 원소의 크기만큼 앞으로 당김. 그림에서는 6이 1번이됨.
+        temp=stcpy[0]
+        #for i in range(len(stcpy)):
+        #    stcpy[i]-=temp+w
+        del stcpy[0]
+        #print(stcpy)
+        if len(stcpy)!=0:
+            stcpy[0]-=temp+w
+    return answer
