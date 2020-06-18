@@ -1,0 +1,36 @@
+def solution(dirs):
+    answer = 0
+    x=0
+    y=0
+    curx=0
+    cury=0
+    way=[]
+    #print(dirs)
+    for i in dirs:
+        if x==-5 and i=='L':
+            continue
+        elif x==5 and i=='R':
+            continue
+        elif y==5 and i=='U':
+            continue
+        elif y==-5 and i=='D':
+            continue
+        else:
+            curx=x
+            cury=y
+            if i=='L':
+                x-=1
+            elif i=='R':
+                x+=1
+            elif i=='U':
+                y+=1
+            else:
+                y-=1
+            #이동경로의 시작점과 끝점이 겹칠경우, 혹은 반대길로 갈경우
+            if [curx,cury,x,y] in way or [x,y,curx,cury] in way:
+                continue
+            else:
+                way.append([curx,cury,x,y])    
+    #print(len(way))
+    answer=len(way)
+    return answer
