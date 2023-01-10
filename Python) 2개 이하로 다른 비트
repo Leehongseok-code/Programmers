@@ -1,0 +1,52 @@
+def numtobit(num):
+    arr = []
+    while num // 2 != 0:
+        arr.append(num%2)
+        num //= 2
+    arr.append(num % 2)
+    if arr[len(arr)-1] == 1:
+        arr.append(0)
+    arr.reverse()
+    return arr    
+
+#2진수로 변환된 숫자의 가장 낮은 자릿수의 0을 1로 변환, 그보다 낮은 자릿수의 1을 0으로 변환
+def bittransform(arr):
+    zeroflag = 0
+    zeroidx = 0
+    oneflag = -1
+    oneidx = -1
+    for i in range(len(arr)-1, -1, -1):
+        if zeroflag == 0 and arr[i] == 0:
+            zeroflag = 1
+            zeroidx = i
+            arr[i] = 1
+        if zeroflag == 0 and arr[i] == 1:
+            #1이 발견된 가장 낮은 자리 기록
+            oneidx = i
+        if zeroflag == 1:
+            if oneidx != -1:
+                arr[oneidx] = 0
+    return arr
+    
+def bittonum(arr):
+    num = 0
+    k = 1
+    for i in range(len(arr)-1, -1, -1):
+        num+= arr[i] * k
+        k *= 2
+    return num
+
+def solution(numbers):
+    answer = []
+
+    arr = numtobit(0)
+    arr = bittransform(arr)
+    ans = bittonum(arr)
+    
+    for num in numbers:
+        arr = numtobit(num)
+        arr = bittransform(arr)
+        ans = bittonum(arr)
+        answer.append(ans)
+        
+    return answer
