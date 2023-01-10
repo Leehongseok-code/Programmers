@@ -1,0 +1,32 @@
+def solution(n, left, right):
+    answer = []
+    arr = []
+    
+    #해당 행, 열 계산 후, 행이 열보다 작으면 열번호를, 반대 상황이면 행번호를 저장
+    row_left = (left // n) + 1
+    col_left = (left % n) + 1
+    
+    
+    row_right = (right // n) + 1
+    col_right = (right % n) + 1
+    
+    
+    r = row_left
+    c = col_left
+    
+    while r < row_right or c <= col_right:
+        if c > n:
+            #줄바꿈
+            r += 1
+            c = 1
+        if r < c:
+            arr.append(c)
+        else:
+            arr.append(r)
+    
+        c += 1
+        
+    answer = arr
+    
+    
+    return answer
