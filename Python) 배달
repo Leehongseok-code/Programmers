@@ -1,0 +1,55 @@
+import heapq  # 우선순위 큐 구현을 위함
+
+def dijkstra(graph, start):
+    distances = { node: float('inf') for node in graph}
+    distances[start] = 0
+    queue = []
+    heapq.heappush(queue, [distances[start], start])
+    
+    while queue:
+        current_distance, current_destination = heapq.heappop(queue)
+        
+        if distances[current_destination] < current_distance:
+            continue
+        for new_destination, new_distance in graph[current_destination].items():
+            distance = current_distance + new_distance
+            if distance < distances[new_destination]:
+                distances[new_destination] = distance
+                heapq.heappush(queue, [distance, new_destination])
+    return distances
+
+def solution(N, road, K):
+    answer = 0
+
+    graph = {}
+    
+    #그래프 초기세팅
+    for node in road:
+        start = node[0]
+        end = node[1]
+        dist = node[2]
+        graph[start]={}
+        graph[end] = {}
+    
+    
+    #그래프 연결관계 표현
+    #두 마을 간 도로가 여러개면, 중간에 거리가 0인 마을을 하나 거쳐서 가는 것으로 생각
+    for node in road:
+        start = node[0]
+        end = node[1]
+        dist = node[2]
+        
+        #길이 이미 있는데 다른 길을 집어넣으려고 할 때,
+        if end in graph[start].keys():
+            #새 길과, 원래 길 중 거리가 짧은 것만을 도로로 사용
+            dist = min(dist, graph[start][end])
+        graph[start][end] = dist
+        graph[end][start] = dist
+    
+    distances = dijkstra(graph, 1)
+
+    for num in distances.values():
+        if num <= K:
+            answer += 1    
+
+    return answer
