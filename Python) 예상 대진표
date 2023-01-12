@@ -1,0 +1,20 @@
+#일반 round함수는 .5의 버림에서 문제가 있음
+def custround(num):
+    if num - int(num) >= 0.5:
+        return int(num)+1
+    else:
+        return int(num)
+
+def solution(n,a,b):
+    answer = 0
+    
+    while True:
+        if a==b:
+            break
+        else:
+            #다음라운드에서 속하게 될 그룹
+            a = custround(a/2)
+            b = custround(b/2)
+        answer+=1
+        
+    return answer
