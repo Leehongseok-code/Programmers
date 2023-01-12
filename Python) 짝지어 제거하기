@@ -1,0 +1,16 @@
+def solution(s):
+    answer = -1
+
+    stk = []
+    for character in s:
+        if len(stk) == 0:
+            stk.append(character)
+        elif stk[len(stk)-1] == character:
+            stk.pop()
+        else:
+            stk.append(character)
+    if len(stk) == 0:
+        answer = 1
+    else:
+        answer = 0
+    return answer
