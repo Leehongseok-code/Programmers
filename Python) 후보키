@@ -37,10 +37,9 @@ def solution(relation):
                 
                 supersetFlag = 0
                 for hubo in hubos:
-                    #print(hubo, comb)
                     if set(comb).issuperset(set(hubo)):
                         supersetFlag = 1
-                #print(supersetFlag)
+
                 if supersetFlag == 0:
                     hubos.append(comb)
             else:
