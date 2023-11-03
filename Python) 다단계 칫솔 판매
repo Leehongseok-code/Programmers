@@ -1,0 +1,28 @@
+import math
+def solution(enroll, referral, seller, amount):
+    answer = []
+    graph = {}
+    pays = {}
+    for i in range(len(enroll)):
+        graph[enroll[i]] = referral[i]
+        pays[enroll[i]] = 0
+    #print(graph)
+    #print(pays)
+    
+    for i in range(len(amount)):
+        price = amount[i]*100
+        target = seller[i]#돈을 배분받을 사람
+        #print(target)
+        
+        while True:
+            royalty = math.floor(price*0.1)
+            mine = price - royalty
+            pays[target] += mine
+            if graph[target] == '-' or royalty == 0:#분배금이 없을 때, 불필요한 반복 삭제
+                break
+            target = graph[target]#추천인으로 타겟 변경
+            price = royalty
+                    
+    #print(pays)
+    answer = list(pays.values())
+    return answer
