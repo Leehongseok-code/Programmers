@@ -1,0 +1,36 @@
+from collections import defaultdict
+import sys
+sys.setrecursionlimit(10000000)
+answer = 0
+
+def solve(graph, start, a, visited):
+    global answer
+    #val을 자신 노드의 가중치로 셋팅
+    nops, val = 0, a[start]
+    
+    for node in graph[start]:
+        if node not in visited:
+            #print("node:", node, "val:", val)
+            visited.add(node)
+            val_node, n = solve(graph, node, a, visited)
+            #자식 노드의 가중치에 자신의 가중치를 덧셈
+            val += val_node
+            nops += n + abs(val_node)
+        
+    return val, nops
+            
+def solution(a, edges):
+    if all(x == 0 for x in a):
+        return 0
+    
+    if sum(a) != 0:
+        return -1
+    
+    graph = defaultdict(list)
+    visited = set()
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+    
+    visited.add(0)
+    return solve(graph, 0, a, visited)[1]
